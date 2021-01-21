@@ -9,7 +9,7 @@ void random_double_vector(double a[], int n, double m, double M){
   double f = (double)rand() / RAND_MAX;
   //Cast doubles into array
   for(int i=0; i<n; i++){
-  a[i] = m + f*(M-m);
+    a[i] = m + f*(M-m);
   return;
   }
 }
