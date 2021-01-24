@@ -39,7 +39,7 @@ double * poli_sum(double *p1, int d1, double *p2, int d2, int &dr){
   //Set dr to the size of the bigger polynomial
   dr = max(d1, d2);
 
-  //Create pointer variable to store new polynomial in the heap
+  //Define pointer variable
   double *sum = new double[dr];
 
   //Calculate the sum - first add the 'coordinates' of the first polynomial, then the second
@@ -56,7 +56,7 @@ double * poli_prod(double *p1, int d1, double *p2, int d2, int &dr){
   //Set dr to sum of the poly sizes
   dr = d1 + d2;
 
-  //Create pointer variable to store output polynomial in the heap
+  //Define pointer variable
   double *prod = new double[dr];
 
   //Set output polynomial to only zeroes
