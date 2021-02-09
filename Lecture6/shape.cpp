@@ -1,5 +1,7 @@
+#ifndef Shape_cpp
+#define Shape_cpp
+
 #include<iostream>
-// #include <cmath>
 using namespace std;
 
 class Shape{
@@ -23,7 +25,7 @@ class Shape{
   void set_filled(bool f){
     this -> filled = f;}
 
-  void print(){
+  virtual void print(){
     cout<<"Color: "<<color<<" Filled: "<<filled<<endl;}
 
   virtual double get_area(){
@@ -33,3 +35,4 @@ class Shape{
     return -1;}
     
 };
+#endif /* Shape_cpp */

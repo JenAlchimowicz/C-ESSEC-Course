@@ -1,3 +1,6 @@
+#ifndef Circle_cpp
+#define Circle_cpp
+
 #include<iostream>
 #include<cmath>
 #include "shape.cpp"
@@ -27,9 +30,12 @@ class Circle: public Shape{
     return 2*M_PI*this->r;}
 
   void print(){
+    cout<<"------ Circle ------"<<endl;
     Shape::print();
     cout<<"Radius: "<<this->r<<endl;
     cout<<"Parimeter: "<<this->get_parimeter()<<endl;
-    cout<<"Area: "<<this->get_area()<<endl;}
+    cout<<"Area: "<<this->get_area()<<endl;
+    cout<<"--------------------"<<endl<<endl;}
 
 };
+#endif /* Circle_cpp */

@@ -1,6 +1,8 @@
+#ifndef Rectangle_cpp
+#define Rectangle_cpp
+
 #include<iostream>
 #include "shape.cpp"
-
 using namespace std;
 
 class Rectangle: public Shape{
@@ -34,11 +36,14 @@ class Rectangle: public Shape{
     return 2*this->length + 2*this->width;}
 
   void print(){
+    cout<<"------ Rectangle ------"<<endl;
     Shape::print();
     cout<<"Length: "<<this->length<<endl;
     cout<<"Width: "<<this->width<<endl;
     cout<<"Area: "<<get_area()<<endl;
     cout<<"Parimeter: "<<get_parimeter()<<endl;
+    cout<<"-----------------------"<<endl<<endl;
   }
 
 };
+#endif /* Rectangle_cpp */
