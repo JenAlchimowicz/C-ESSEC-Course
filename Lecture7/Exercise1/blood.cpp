@@ -16,6 +16,8 @@ class Blood{
     cout<<"   "<<this->systolic<<"        "<<this->diastolic<<"       ";
     this->day.print();
   }
+
+  friend class Patient;
 };
 
 #endif /* Blood_cpp */
