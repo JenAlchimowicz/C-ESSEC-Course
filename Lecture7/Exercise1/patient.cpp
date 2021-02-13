@@ -3,14 +3,11 @@
 
 #include "blood.cpp"
 #include <vector>
-#include <algorithm>
 
 class Patient{
   protected:
   string name;
   vector <Blood> records;
-  vector <int> vSystolic;
-  vector <int> vDiastolic;
 
   public:
   Patient(): name{"No_name"} {};
@@ -18,12 +15,72 @@ class Patient{
 
   void addRecord(Blood b){
     records.push_back(b);
-    vSystolic.push_back(b.systolic);
-    vDiastolic.push_back(b.diastolic);
   }
 
+  
+  //PRINT HIGHEST ABNORMAL SYSTOLIC BLOOD PRESSURE
+  void printAbnSys(){
+    cout<<"Highest abnormal systolic blood pressure: ";
+
+    //Store max value in max and id of the record in maxId
+    int max = 0;
+    int maxId;
+    for (int i=0; i<records.size(); i++){
+      if (records[i].systolic > max){
+        max = records[i].systolic;
+        maxId = i;
+      }
+    }
+    //Display record if max>140
+    if (max > 140){
+      cout<<endl;
+      records[maxId].print();
+      cout<<endl;
+    }
+    else{
+      cout<<"No measurement was too high"<<endl;
+    }
+  }
+
+  //PRINT AVERAGE DIASTOLIC BLOOD PRESSURE
+  void printAvDia(){
+    cout<<"Average diastolic blood pressure: "<<endl;
+    int dSum = 0;
+    for (int i=0; i<records.size(); i++){
+      dSum += records[i].diastolic;
+    }
+    cout << dSum/records.size()<<endl<<endl;
+  }
+
+  //PRINT LIST OF MAX BLOOD PRESSURES
+  void printMaxList(){
+    cout<<"List of max blood pressures:"<<endl;
+    
+    //Store ids in a vector and value of max in variable max
+    vector <int> maxId;
+    int max = 0;
+
+    //Get ids of max rows
+    for (int i=0; i<records.size(); i++){
+      if (records[i].systolic > max){
+        max = records[i].systolic;
+        maxId.clear();
+        maxId.shrink_to_fit();
+        maxId.push_back(i);
+      }
+      else if (records[i].systolic == max){
+        maxId.push_back(i);
+      }
+    }
+
+    //Call print for all ids stored in maxId
+    for (int i=0; i<maxId.size(); i++){
+      records[maxId[i]].print();
+    }
+  }
+
+  //PRINT REPORT
   void printReport(){
-    //LIST OF RECORDS
     cout<<"-------------------------------"<<endl;
     cout<<"       Patient: "<<name<<endl;
     cout<<"Systolic  "<<"Diastolic    "<<"Day"<<endl;
@@ -31,43 +88,12 @@ class Patient{
       records[i].print();
     }
 
-    cout<<endl<<"Additional data:"<<endl;
+    cout<<endl<<"***  Additional data:  ***"<<endl;
     
+    printAbnSys();
+    printAvDia();
+    printMaxList();
 
-    //HIGHEST ABNORMAL SYSTOLIC BLOOD PRESSURE
-    cout<<"Highest abnormal systolic blood pressure: ";
-    //get max record index using max_element from <algorithms>
-    int maxSysId = max_element(vSystolic.begin(),vSystolic.end()) - vSystolic.begin();
-    //Display record if max>140
-    if (records[maxSysId].systolic > 140){
-      cout<<endl;
-      records[maxSysId].print();
-      cout<<endl;
-    }
-    else{
-      cout<<"No measurement was too high"<<endl;
-    }
-
-    //AVERAGE DIASTOLIC BLOOD PRESSURE
-    cout<<"Average diastolic blood pressure: "<<endl;
-    int dSum = 0;
-    for (int i=0; i<vDiastolic.size(); i++){
-      dSum += vDiastolic[i];
-    }
-    cout << dSum/vDiastolic.size()<<endl<<endl;
-
-
-    //LIST OF MAX BLOOD PRESSURES
-    cout<<"List of max blood pressures:"<<endl;
-    records[maxSysId].print();
-    for (int i=0; i<vSystolic.size(); i++){
-      if (i==maxSysId){}
-      else {
-        if (vSystolic[i]==vSystolic[maxSysId]){
-          records[i].print();
-        }
-      }
-    }
     cout<<"-------------------------------"<<endl;
   }
 };
