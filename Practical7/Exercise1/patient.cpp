@@ -10,7 +10,6 @@ class Patient{
   vector <Blood> records;
 
   public:
-  Patient(): name{"No_name"} {};
   Patient (string n): name{n} {};
 
   void addRecord(Blood b){
@@ -45,11 +44,11 @@ class Patient{
   //PRINT AVERAGE DIASTOLIC BLOOD PRESSURE
   void printAvDia(){
     cout<<"Average diastolic blood pressure: "<<endl;
-    int dSum = 0;
+    double dSum = 0;
     for (int i=0; i<records.size(); i++){
       dSum += records[i].diastolic;
     }
-    cout << dSum/records.size()<<endl<<endl;
+    cout << dSum/double(records.size())<<endl<<endl;
   }
 
   //PRINT LIST OF MAX BLOOD PRESSURES
