@@ -2,7 +2,7 @@
 #define stack_cpp
 
 #include <iostream>
-#include "stackI.cpp"
+#include "stackI.hpp"
 using namespace std;
 
 #define size(a) (sizeof(a) / sizeof(*a))
@@ -10,7 +10,6 @@ using namespace std;
 template <typename T>
 class Stack: public StackI<T> {
   private:
-  int n;
   T * stack;
   int tracker;
 
@@ -26,7 +25,7 @@ class Stack: public StackI<T> {
   }
 
   //Is empty
-  bool isEmpty() override{
+  bool isEmpty() {
     if (tracker == -1){
       return true;
     }
@@ -36,7 +35,7 @@ class Stack: public StackI<T> {
   }
 
   //Push
-  void push(T t) override{
+  void push(T t) {
     if (tracker == size(stack)){
       cout << "FullStackException"<<endl;
     }
@@ -47,7 +46,7 @@ class Stack: public StackI<T> {
   }
 
   //Pop
-  void pop() override{
+  void pop() {
     if (isEmpty() == true){
       cout << "EmptyStackException"<<endl;
     }
@@ -57,10 +56,10 @@ class Stack: public StackI<T> {
   }
 
   //T top
-  T top() override{
+  T top() {
     if (isEmpty() == true){
       cout << "EmptyStackException"<<endl;
-      return;
+      throw bad_alloc();
     }
     else{
       return stack[tracker];
@@ -68,12 +67,17 @@ class Stack: public StackI<T> {
   }
 
   //Print
-  void print() override{
-    cout<<"[";
-    for (int i=size(stack); i>=0; i--){
-      cout<<stack[i];
+  void print() {
+    if (isEmpty()==true){
+      cout<<"[]"<<endl;
     }
-    cout<<"]"<<endl;
+    else{
+      cout<<"[";
+      for (int i=size(stack); i>=0; i--){
+        cout<<stack[i]<<" ";
+      }
+      cout<<"]"<<endl;
+    }
   }
 };
 
