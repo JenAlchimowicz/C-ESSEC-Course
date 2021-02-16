@@ -17,6 +17,7 @@ class Blood{
     this->day.print();
   }
 
+  //Important: we can access systolic and diastolic values directly from the Patient class
   friend class Patient;
 };
 
