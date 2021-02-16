@@ -21,7 +21,11 @@ class Stack: public StackI<T> {
   //Destructor
   ~Stack(){
     if(stack != nullptr){
-      delete stack;}
+      delete []stack;}
+  }
+  //TEST
+  void show_tracker(){
+    cout << this-> tracker <<endl;
   }
 
   //Is empty
@@ -73,7 +77,7 @@ class Stack: public StackI<T> {
     }
     else{
       cout<<"[";
-      for (int i=size(stack); i>=0; i--){
+      for (int i=tracker; i>=0; i--){
         cout<<stack[i]<<" ";
       }
       cout<<"]"<<endl;
