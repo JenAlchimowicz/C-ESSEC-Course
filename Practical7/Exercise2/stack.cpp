@@ -2,71 +2,69 @@
 #define stack_cpp
 
 #include <iostream>
+#include <vector>
+#include <exception>
 #include "stackI.hpp"
 using namespace std;
 
-#define size(a) (sizeof(a) / sizeof(*a))
+//Define exceptions
+struct FullStackException: public exception {
+   const char * what () const throw () {
+      return "FullStackException";
+   }
+};
 
+struct EmptyStackException: public exception {
+   const char * what () const throw () {
+      return "EmptyStackException";
+   }
+};
+
+//Define Stack class
 template <typename T>
 class Stack: public StackI<T> {
   private:
-  T * stack;
-  int tracker;
+  int n; //For max size of vector
+  vector <T> stack;
 
   public:
   //Constructors
-  Stack() {stack = new T[20], tracker = -1;}
-  Stack(int n) {stack = new T[n], tracker = -1;}
+  Stack(): n{20} {};
+  Stack(int nn): n{nn} {};
 
-  //Destructor
-  ~Stack(){
-    if(stack != nullptr){
-      delete []stack;}
-  }
-  //TEST
-  void show_tracker(){
-    cout << this-> tracker <<endl;
-  }
 
   //Is empty
   bool isEmpty() {
-    if (tracker == -1){
-      return true;
-    }
-    else{
-      return false;
-    }
+    return stack.empty();
   }
 
   //Push
   void push(T t) {
-    if (tracker == size(stack)){
-      cout << "FullStackException"<<endl;
+    if (stack.size() == n){
+      throw FullStackException();
     }
     else{
-      tracker += 1;
-      stack[tracker] = t;
+      stack.push_back(t);
     }
   }
 
   //Pop
   void pop() {
     if (isEmpty() == true){
-      cout << "EmptyStackException"<<endl;
+      throw EmptyStackException();
     }
     else{
-      tracker -= 1;
+      stack.pop_back();
     }
   }
 
   //T top
   T top() {
     if (isEmpty() == true){
-      cout << "EmptyStackException"<<endl;
-      throw bad_alloc();
+      throw EmptyStackException();
     }
     else{
-      return stack[tracker];
+      return stack.back();
     }
   }
 
@@ -76,8 +74,8 @@ class Stack: public StackI<T> {
       cout<<"[]"<<endl;
     }
     else{
-      cout<<"[";
-      for (int i=tracker; i>=0; i--){
+      cout<<"[ ";
+      for (int i=stack.size()-1; i>=0; i--){
         cout<<stack[i]<<" ";
       }
       cout<<"]"<<endl;
